@@ -1,2 +1,29 @@
-# mobile_mini_app
+# react-native-mobile-mini-app
+update this
+## Installation
 
+```sh
+npm install react-native-mobile-mini-app
+```
+
+## Usage
+
+```js
+import { multiply } from "react-native-mobile-mini-app";
+
+// ...
+
+const result = await multiply(3, 7);
+```
+
+## Contributing
+
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+## License
+
+MIT
+
+---
+
+Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
