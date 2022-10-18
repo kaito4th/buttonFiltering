@@ -14,7 +14,8 @@
   "scripts": {
     "test": "jest",
     "typescript": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint": "eslint src --fix",
+    "prettier": "prettier src --write",
     "prepare": "bob build",
     "release": "release-it",
     "example": "npm --prefix example",
