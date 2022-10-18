@@ -1,13 +1,14 @@
 pre-commit:
   parallel: true
   commands:
+    prettier:
+      glob: '*.{js,ts,jsx,tsx}'
+      run: npx prettier {staged_files}
     lint:
-      files: git diff --name-only @{push}
-      glob: "*.{js,ts,jsx,tsx}"
-      run: npx eslint {files}
+      glob: '*.{js,ts,jsx,tsx}'
+      run: npx eslint {staged_files}
     types:
-      files: git diff --name-only @{push}
-      glob: "*.{js,ts, jsx, tsx}"
+      glob: '*.{js,ts, jsx, tsx}'
       run: npx tsc --noEmit
 commit-msg:
   parallel: true
