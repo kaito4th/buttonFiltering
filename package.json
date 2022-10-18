@@ -9,22 +9,7 @@
   "source": "src/index",
   "files": [
     "src",
-    "lib",
-    "android",
-    "ios",
-    "cpp",
-    "*.podspec",
-    "!lib/typescript/example",
-    "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
-    "!android/local.properties",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__",
-    "!**/.*"
+    "lib"
   ],
   "scripts": {
     "test": "jest",
@@ -43,13 +28,6 @@
   "repository": "http://serino-gitlab.serino.com/Dev/mini-app/mobile_mini_app",
   "author": "'Albert Caloracan' <'albert.caloracan@serino.com'> (http://serino-gitlab.serino.com/Dev/mini-app/mobile_mini_app)",
   "license": "MIT",
-  "bugs": {
-    "url": "http://serino-gitlab.serino.com/Dev/mini-app/mobile_mini_app/issues"
-  },
-  "homepage": "http://serino-gitlab.serino.com/Dev/mini-app/mobile_mini_app#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
     "@commitlint/config-conventional": "^17.0.2",
