@@ -32,7 +32,11 @@
     "android"
   ],
   "repository": "http://serino-gitlab.serino.com/Dev/mini-app/mobile_mini_app",
-  "author": "'Albert Caloracan' <'albert.caloracan@serino.com'> (http://serino-gitlab.serino.com/Dev/mini-app/mobile_mini_app)",
+  "author": {
+    "name": "FirstName LastName",
+    "email": "mail@mail.com",
+    "url": "http://serino-gitlab.serino.com/Dev/mini-app/mobile_mini_app"
+  },
   "license": "MIT",
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
