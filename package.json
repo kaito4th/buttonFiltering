@@ -18,7 +18,13 @@
     "prepare": "bob build",
     "release": "release-it",
     "example": "npm --prefix example",
-    "bootstrap": "npm run example clean-install && npm clean-install && npm run example run pods"
+    "bootstrap": "npm run example clean-install && npm clean-install && npm run example run pods",
+    "prepub": "npx rimraf lib && npm run prepare",
+    "version:major": "npm version major --no-git-tag-version",
+    "version:minor": "npm version minor --no-git-tag-version",
+    "version:patch": "npm version patch --no-git-tag-version",
+    "publish:local": "npm publish --registry http://localhost:4873",
+    "publish:serino": "npm publish --registry http://miniapp.serino.com:4873/"
   },
   "keywords": [
     "react-native",
