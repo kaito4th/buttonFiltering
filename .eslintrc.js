@@ -30,6 +30,8 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    'react/prop-types': 'off',
+    'react-hooks/exhaustive-deps': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'react-native/no-raw-text': 'off',
     'react-native/no-color-literals': 'off',
