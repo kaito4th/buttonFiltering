@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-mobile-mini-app": ["./src/index"]
+      "serino-mapp-filter-data": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

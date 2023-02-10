@@ -1,5 +1,5 @@
 {
-  "name": "react-native-mobile-mini-app",
+  "name": "serino-mapp-filter-data",
   "version": "0.1.0",
   "description": "test",
   "main": "lib/commonjs/index",
@@ -121,5 +121,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
