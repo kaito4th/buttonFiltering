@@ -5,60 +5,64 @@ import { FilterMAPP } from 'serino-mapp-filter-data';
 
 export default function App() {
   const [filteredValues, setFilteredValues] = useState<FilterDataLoad>();
-  const response = [
-    {
-      id: 1,
-      brand: 'Google Market',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 3000,
-      category: 'Market',
-    },
-    {
-      id: 2,
-      brand: 'Popeye',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 836,
-      category: 'Eats',
-    },
-    {
-      id: 3,
-      brand: 'Retiro Pares',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 328,
-      category: 'Eats',
-    },
-    {
-      id: 4,
-      brand: 'Amazon Market',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 6824,
-      category: 'Market',
-    },
-    {
-      id: 5,
-      brand: 'Puregold',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 2138,
-      category: 'Market',
-    },
-  ];
+  // const response = [
+  //   {
+  //     id: 1,
+  //     brand: 'Google Market',
+  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  //     price: 3000,
+  //     category: 'Market',
+  //   },
+  //   {
+  //     id: 2,
+  //     brand: 'Popeye',
+  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  //     price: 836,
+  //     category: 'Eats',
+  //   },
+  //   {
+  //     id: 3,
+  //     brand: 'Retiro Pares',
+  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  //     price: 328,
+  //     category: 'Eats',
+  //   },
+  //   {
+  //     id: 4,
+  //     brand: 'Amazon Market',
+  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  //     price: 6824,
+  //     category: 'Market',
+  //   },
+  //   {
+  //     id: 5,
+  //     brand: 'Puregold',
+  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  //     price: 2138,
+  //     category: 'Market',
+  //   },
+  // ];
 
   const buttonFilterList = [
     {
       text: 'Grocery',
       value: 'Grocery',
+      isSelected: false,
     },
     {
       text: 'Shop',
       value: 'Shop',
+      isSelected: false,
     },
     {
       text: 'Markets',
       value: 'Markets',
+      isSelected: false,
     },
     {
       text: 'Eats',
       value: 'Eats',
+      isSelected: false,
     },
   ];
 
@@ -78,16 +82,17 @@ export default function App() {
       <View>
         <FilterMAPP
           dataIn={{
-            isMultiSelect: true,
+            isMultiSelect: false,
             isAllbuttonActive: true,
-            inactiveButtonStyle: { backgroundColor: 'yellow' },
-            activeButtonStyle: { backgroundColor: 'red' },
+            sameWidth: true,
+            // inactiveButtonStyle: { backgroundColor: 'yellow' },
+            //activeButtonStyle: { backgroundColor: 'red' },
           }}
           dataLoad={buttonFilterList}
           dataOut={(value: any) => console.log('app: ', value)}
         />
       </View>
-      <View>
+      {/* <View>
         <FlatList
           data={response}
           renderItem={({ item }) => (
@@ -96,7 +101,7 @@ export default function App() {
             </View>
           )}
         />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }

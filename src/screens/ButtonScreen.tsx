@@ -19,17 +19,14 @@ type Props = {
 };
 
 const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
-  const { onPresshandler, isActive, setIsActive, selected } = useViewModel({
-    DataLoad,
-    DataOut,
-  });
+  const { onPresshandler, showAllButton, selectedItems, selectAll } =
+    useViewModel({
+      DataLoad,
+      DataOut,
+      DataIn,
+    });
 
-  // useEffect(() => {
-  //   onSelectEatsFilter(),
-  //     onSelectMarketsFilter(),
-  //     onSelectAllFilter(),
-  //     onFilterMarketList();
-  // }, []);
+  useEffect(() => {}, []);
 
   // const onPressHandler = (btn: any) => {
   //   if (DataIn.isMultiSelect == true) {
@@ -38,33 +35,47 @@ const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
   //     setActiveButtonFilter(btn);
   //   }
   // };
-  const onMultiHandler = ({ item, index }: any) => {
-    if (DataIn?.isMultiSelect == true) {
-      console.log('spread: ', [...isActive, index]);
-      setIsActive([...isActive, index]);
-      //DataOut([item]);
-    }
-    if (isActive.includes(index)) {
-      setIsActive(isActive.filter(i => i !== index));
-    }
-  };
-
-  const showAllButton = DataIn?.isAllbuttonActive
-    ? [{ text: 'All', value: 'All' }, ...DataLoad]
-    : DataLoad;
+  // const onMultiHandler = (item: any) => {
+  //   DataLoad.map((value: any) => {
+  //     console.log('value', value.text);
+  //     if (DataIn.isMultiSelect === true) {
+  //       if (value.text === item) {
+  //         console.log('here: ', item);
+  //         return { ...value, isSelected: !value.isSelected };
+  //       }
+  //       return value;
+  //     }
+  //   });
+  // };
 
   const renderItem = ({ item, index }: any) => {
-    console.log('index: ', index);
     return (
       <TouchableOpacity
         onPress={() => {
           onPresshandler({ item, index });
-          onMultiHandler(index);
+          //onMultiHandler(item);
         }}
       >
-        {!isActive.includes(index) ? (
+        {selectedItems.includes(item) ||
+        selectAll.selectAll ||
+        item.isSelected == true ? (
           <View
             style={[
+              item.text === 'All' && !DataIn.sameWidth ? { width: 75 } : {},
+              DataIn.sameWidth ? { width: 75 } : {},
+              styles.isActiveButtonStyle,
+              DataIn.activeButtonStyle,
+            ]}
+          >
+            <Text style={[styles.buttonTextStyle, DataIn.textStyleProp]}>
+              {item.text}
+            </Text>
+          </View>
+        ) : (
+          <View
+            style={[
+              item.text === 'All' && !DataIn.sameWidth ? { width: 75 } : {},
+              DataIn.sameWidth ? { width: 75 } : {},
               styles.buttonStyle,
               [
                 {
@@ -74,12 +85,6 @@ const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
               DataIn.inactiveButtonStyle,
             ]}
           >
-            <Text style={[styles.buttonTextStyle, DataIn.textStyleProp]}>
-              {item.text}
-            </Text>
-          </View>
-        ) : (
-          <View style={[styles.buttonStyle, DataIn.activeButtonStyle]}>
             <Text style={[styles.buttonTextStyle, DataIn.textStyleProp]}>
               {item.text}
             </Text>
@@ -100,7 +105,6 @@ const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
     />
   );
 };
-// isActive.includes(index) ? '#F69065' : 'white',
 
 const styles = StyleSheet.create({
   container: {
@@ -123,6 +127,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   isActiveButtonStyle: {
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    marginVertical: 10,
+    marginHorizontal: 5,
     backgroundColor: '#F69065',
   },
   isInactiveButtonStyle: {

@@ -6,4 +6,5 @@ export type FilterDataIn = {
   isMultiSelect?: boolean;
   isAllbuttonActive?: boolean;
   activeButtonStyle?: StyleProp<TextStyle>;
+  sameWidth?: boolean;
 };
