@@ -1,5 +1,7 @@
-import _, { filter } from 'lodash';
+import _ from 'lodash';
 import { useState } from 'react';
+
+//TYPES
 import type { FilterDataIn, FilterDataLoad, FilterDataOut } from 'src/types';
 
 type Props = {
@@ -9,28 +11,26 @@ type Props = {
 };
 
 const useViewModel = ({ DataLoad, DataOut, DataIn }: Props) => {
-  const [activeButtonFilter, setActiveButtonFilter] = useState<{
-    text: string;
-    value: string;
-  }>({ text: 'All', value: 'All' });
   //const [selected, setSelected] = useState<number[]>([]);
   //const [isActive, setIsActive] = useState<number[]>([1]);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [data, setData] = useState(DataLoad);
+  const [selectedItems, setSelectedItems] = useState<FilterDataLoad>([]);
   const [selectAll, setSelectAll] = useState({ DataLoad, selectAll: false });
-  console.log('count: ', selectedItems.length);
+  const [single, setSingle] = useState({});
 
-  const onPresshandler = ({ item, index }: any) => {
-    const filteredButtons = showAllButton.map((selected: any) => {
+  const onPresshandler = ({ item }: any) => {
+    showAllButton.map((selected: any) => {
       const newItems = selectAll.DataLoad.map(item => ({
         ...item,
         selected: !selectAll.selectAll,
       }));
+      //if all is true and selected
       if (item.text === 'All') {
         setSelectAll({ DataLoad: newItems, selectAll: !selectAll.selectAll });
         console.log('state: ', selectAll);
         return { ...selected, isSelected: true };
-      } else if (DataIn?.isMultiSelect) {
+      }
+      //if multi is true
+      else if (DataIn?.isMultiSelect) {
         if (selected.text === item.text) {
           setSelectedItems((prevState: any) => {
             if (prevState.includes(item)) {
@@ -49,27 +49,15 @@ const useViewModel = ({ DataLoad, DataOut, DataIn }: Props) => {
         }
         return selected;
       } else {
-        console.log('else');
-        if (selected.text !== item && selected.isSelected === true) {
-          return { ...selected, isSelected: false };
-        }
-        if (selected.text === item) {
-          return { ...selected, isSelected: !selected.isSelected };
+        //if multi is false
+        if (selected === item) {
+          setSingle(item);
         }
         return selected;
       }
     });
-    setData(filteredButtons);
-    console.log(item);
+    //console.log(single);
     DataOut([...selectedItems, item]);
-    // if (item.text === 'All') {
-    //   console.log('item: ', item.text);
-
-    //   DataOut([]);
-    // } else {
-    //   setIsActive([index]);
-    //   DataOut([item, index]);
-    // }
   };
 
   const showAllButton = DataIn?.isAllbuttonActive
@@ -77,12 +65,11 @@ const useViewModel = ({ DataLoad, DataOut, DataIn }: Props) => {
     : DataLoad;
 
   return {
-    setActiveButtonFilter,
     showAllButton,
     onPresshandler,
     selectedItems,
-    activeButtonFilter,
     selectAll,
+    single,
   };
 };
 

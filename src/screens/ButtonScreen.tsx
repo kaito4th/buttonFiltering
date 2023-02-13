@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+//OTHERS
 import _ from 'lodash';
 //TYPES
 import type { FilterDataIn, FilterDataLoad, FilterDataOut } from 'src/types';
-
+//MODEL
 import useViewModel from './useViewModel';
 
 type Props = {
@@ -19,34 +20,12 @@ type Props = {
 };
 
 const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
-  const { onPresshandler, showAllButton, selectedItems, selectAll } =
+  const { onPresshandler, showAllButton, selectedItems, selectAll, single } =
     useViewModel({
       DataLoad,
       DataOut,
       DataIn,
     });
-
-  useEffect(() => {}, []);
-
-  // const onPressHandler = (btn: any) => {
-  //   if (DataIn.isMultiSelect == true) {
-  //     setActiveButtonFilter(btn), handleMultiSelect(btn), console.log(btn);
-  //   } else {
-  //     setActiveButtonFilter(btn);
-  //   }
-  // };
-  // const onMultiHandler = (item: any) => {
-  //   DataLoad.map((value: any) => {
-  //     console.log('value', value.text);
-  //     if (DataIn.isMultiSelect === true) {
-  //       if (value.text === item) {
-  //         console.log('here: ', item);
-  //         return { ...value, isSelected: !value.isSelected };
-  //       }
-  //       return value;
-  //     }
-  //   });
-  // };
 
   const renderItem = ({ item, index }: any) => {
     return (
@@ -58,7 +37,8 @@ const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
       >
         {selectedItems.includes(item) ||
         selectAll.selectAll ||
-        item.isSelected == true ? (
+        item.isSelected == true ||
+        single === item ? (
           <View
             style={[
               item.text === 'All' && !DataIn.sameWidth ? { width: 75 } : {},
@@ -67,7 +47,7 @@ const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
               DataIn.activeButtonStyle,
             ]}
           >
-            <Text style={[styles.buttonTextStyle, DataIn.textStyleProp]}>
+            <Text style={[styles.buttonTextStyle, DataIn.activeTextStyle]}>
               {item.text}
             </Text>
           </View>
@@ -82,10 +62,10 @@ const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
                   backgroundColor: 'transparent',
                 },
               ],
-              DataIn.inactiveButtonStyle,
+              DataIn.inActiveButtonStyle,
             ]}
           >
-            <Text style={[styles.buttonTextStyle, DataIn.textStyleProp]}>
+            <Text style={[styles.buttonTextStyle, DataIn.inActiveTextStyle]}>
               {item.text}
             </Text>
           </View>

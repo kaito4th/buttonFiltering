@@ -1,48 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, SafeAreaView, FlatList, Text } from 'react-native';
-import type { FilterDataLoad } from 'src/types';
+import React from 'react';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+
+//ROOT
 import { FilterMAPP } from 'serino-mapp-filter-data';
 
 export default function App() {
-  const [filteredValues, setFilteredValues] = useState<FilterDataLoad>();
-  // const response = [
-  //   {
-  //     id: 1,
-  //     brand: 'Google Market',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  //     price: 3000,
-  //     category: 'Market',
-  //   },
-  //   {
-  //     id: 2,
-  //     brand: 'Popeye',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  //     price: 836,
-  //     category: 'Eats',
-  //   },
-  //   {
-  //     id: 3,
-  //     brand: 'Retiro Pares',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  //     price: 328,
-  //     category: 'Eats',
-  //   },
-  //   {
-  //     id: 4,
-  //     brand: 'Amazon Market',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  //     price: 6824,
-  //     category: 'Market',
-  //   },
-  //   {
-  //     id: 5,
-  //     brand: 'Puregold',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  //     price: 2138,
-  //     category: 'Market',
-  //   },
-  // ];
-
   const buttonFilterList = [
     {
       text: 'Grocery',
@@ -66,27 +28,31 @@ export default function App() {
     },
   ];
 
-  const [dataOutData, setDataOutData] = useState<any>([]);
-  const buttonData = (value: any) => {
-    if (value.length == 0) {
-      setDataOutData(new Array());
-    } else if (value.length == 1) {
-      setDataOutData([...dataOutData, value[0]]);
-    } else {
-      setDataOutData([value[0]]);
-    }
-  };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
         <FilterMAPP
           dataIn={{
-            isMultiSelect: false,
+            isMultiSelect: true,
             isAllbuttonActive: true,
             sameWidth: true,
-            // inactiveButtonStyle: { backgroundColor: 'yellow' },
-            //activeButtonStyle: { backgroundColor: 'red' },
+            inActiveButtonStyle: {
+              backgroundColor: 'lightgray',
+              borderColor: 'lightgray',
+              justifyContent: 'center',
+            },
+            activeButtonStyle: {
+              backgroundColor: 'orange',
+              borderColor: 'orange',
+              height: 40,
+              justifyContent: 'center',
+            },
+            activeTextStyle: { color: 'white', textAlign: 'center' },
+            inActiveTextStyle: {
+              textAlign: 'center',
+              justifyContent: 'center',
+              color: 'white',
+            },
           }}
           dataLoad={buttonFilterList}
           dataOut={(value: any) => console.log('app: ', value)}
