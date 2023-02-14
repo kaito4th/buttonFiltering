@@ -1,11 +1,8 @@
-export type FilterDataLoad = {
-  text: string;
-  value: string;
-  isSelected: boolean;
-}[];
-
-export type SingleFilterDataLoad = {
+export type FilterDataModel = {
+  id: number;
   text: string;
   value: string;
   isSelected: boolean;
 };
+
+export type FilterDataLoad = FilterDataModel[];

@@ -7,21 +7,25 @@ import { FilterMAPP } from 'serino-mapp-filter-data';
 export default function App() {
   const buttonFilterList = [
     {
+      id: 2,
       text: 'Grocery',
       value: 'Grocery',
       isSelected: false,
     },
     {
+      id: 3,
       text: 'Shop',
       value: 'Shop',
       isSelected: false,
     },
     {
+      id: 4,
       text: 'Markets',
       value: 'Markets',
       isSelected: false,
     },
     {
+      id: 5,
       text: 'Eats',
       value: 'Eats',
       isSelected: false,
@@ -33,9 +37,9 @@ export default function App() {
       <View>
         <FilterMAPP
           dataIn={{
-            isMultiSelect: true,
+            isMultiSelect: false,
             isAllbuttonActive: true,
-            sameWidth: true,
+            // sameWidth: true,
             inActiveButtonStyle: {
               backgroundColor: 'lightgray',
               borderColor: 'lightgray',

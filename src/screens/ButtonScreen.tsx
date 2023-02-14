@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -14,58 +14,74 @@ import type { FilterDataIn, FilterDataLoad, FilterDataOut } from 'src/types';
 import useViewModel from './useViewModel';
 
 type Props = {
-  DataIn: FilterDataIn;
-  DataLoad: FilterDataLoad;
-  DataOut: FilterDataOut;
+  dataIn: FilterDataIn;
+  dataLoad: FilterDataLoad;
+  dataOut: FilterDataOut;
 };
 
-const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
-  const { onPresshandler, showAllButton, selectedItems, selectAll, single } =
-    useViewModel({
-      DataLoad,
-      DataOut,
-      DataIn,
-    });
+const ButtonScreen = ({ dataIn, dataLoad, dataOut }: Props) => {
+  const {
+    onPresshandler,
+    selectedItems,
+    buttonList,
+    single,
+    filteredData,
+    onSelectItem,
+    onAllButtonPress,
+  } = useViewModel({
+    dataLoad,
+    dataOut,
+    dataIn,
+  });
+
+  const AllButtonValue = [
+    {
+      id: 1,
+      text: 'All',
+      value: 'All',
+      isSelected: true,
+    },
+  ];
+  console.log('filteredData: ', buttonList);
 
   const renderItem = ({ item, index }: any) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          onPresshandler({ item, index });
-          //onMultiHandler(item);
+          //onPresshandler({ item, index });
+          onSelectItem(item);
         }}
       >
-        {selectedItems.includes(item) ||
-        selectAll.selectAll ||
-        item.isSelected == true ||
+        {buttonList.includes(item) ||
+        item.isSelected === true ||
         single === item ? (
           <View
             style={[
-              item.text === 'All' && !DataIn.sameWidth ? { width: 75 } : {},
-              DataIn.sameWidth ? { width: 75 } : {},
+              item.text === 'All' && !dataIn.sameWidth ? { width: 75 } : {},
+              dataIn.sameWidth ? { width: 75 } : {},
               styles.isActiveButtonStyle,
-              DataIn.activeButtonStyle,
+              dataIn.activeButtonStyle,
             ]}
           >
-            <Text style={[styles.buttonTextStyle, DataIn.activeTextStyle]}>
+            <Text style={[styles.buttonTextStyle, dataIn.activeTextStyle]}>
               {item.text}
             </Text>
           </View>
         ) : (
           <View
             style={[
-              item.text === 'All' && !DataIn.sameWidth ? { width: 75 } : {},
-              DataIn.sameWidth ? { width: 75 } : {},
+              item.text === 'All' && !dataIn.sameWidth ? { width: 75 } : {},
+              dataIn.sameWidth ? { width: 75 } : {},
               styles.buttonStyle,
               [
                 {
                   backgroundColor: 'transparent',
                 },
               ],
-              DataIn.inActiveButtonStyle,
+              dataIn.inActiveButtonStyle,
             ]}
           >
-            <Text style={[styles.buttonTextStyle, DataIn.inActiveTextStyle]}>
+            <Text style={[styles.buttonTextStyle, dataIn.inActiveTextStyle]}>
               {item.text}
             </Text>
           </View>
@@ -75,14 +91,68 @@ const ButtonScreen = ({ DataIn, DataLoad, DataOut }: Props) => {
   };
 
   return (
-    <FlatList
-      style={{
-        marginBottom: 20,
-      }}
-      data={showAllButton}
-      renderItem={item => renderItem(item)}
-      horizontal
-    />
+    <>
+      <View style={{ flexDirection: 'row' }}>
+        {AllButtonValue.map(buttonValue => (
+          <TouchableOpacity
+            key={buttonValue.id}
+            onPress={() => {
+              onAllButtonPress();
+              onSelectItem(buttonValue);
+              console.log('button: ', buttonValue.isSelected);
+            }}
+          >
+            {buttonValue.isSelected === true ? (
+              <View
+                style={[
+                  buttonValue.text === 'All' && !dataIn.sameWidth
+                    ? { width: 75 }
+                    : {},
+                  dataIn.sameWidth ? { width: 75 } : {},
+                  styles.isActiveButtonStyle,
+                  dataIn.activeButtonStyle,
+                ]}
+              >
+                <Text style={[styles.buttonTextStyle, dataIn.activeTextStyle]}>
+                  {buttonValue.text}
+                </Text>
+              </View>
+            ) : (
+              <View
+                style={[
+                  buttonValue.text === 'All' && !dataIn.sameWidth
+                    ? { width: 75 }
+                    : {},
+                  dataIn.sameWidth ? { width: 75 } : {},
+                  styles.buttonStyle,
+                  [
+                    {
+                      backgroundColor: 'transparent',
+                    },
+                  ],
+                  dataIn.inActiveButtonStyle,
+                ]}
+              >
+                <Text
+                  style={[styles.buttonTextStyle, dataIn.inActiveTextStyle]}
+                >
+                  {buttonValue.text}
+                </Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        ))}
+
+        <FlatList
+          style={{
+            marginBottom: 20,
+          }}
+          data={buttonList}
+          renderItem={item => renderItem(item)}
+          horizontal
+        />
+      </View>
+    </>
   );
 };
 

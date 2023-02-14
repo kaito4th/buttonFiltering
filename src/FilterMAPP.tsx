@@ -10,7 +10,7 @@ type Props = {
 };
 
 const FilterMAPP = ({ dataIn, dataLoad, dataOut }: Props) => {
-  return <ButtonScreen DataIn={dataIn} DataLoad={dataLoad} DataOut={dataOut} />;
+  return <ButtonScreen dataIn={dataIn} dataLoad={dataLoad} dataOut={dataOut} />;
 };
 
 export default FilterMAPP;
