@@ -20,15 +20,7 @@ type Props = {
 };
 
 const ButtonScreen = ({ dataIn, dataLoad, dataOut }: Props) => {
-  const {
-    onPresshandler,
-    selectedItems,
-    buttonList,
-    single,
-    filteredData,
-    onSelectItem,
-    onAllButtonPress,
-  } = useViewModel({
+  const { buttonList, onSelectItem, onAllButtonPress } = useViewModel({
     dataLoad,
     dataOut,
     dataIn,
@@ -48,13 +40,12 @@ const ButtonScreen = ({ dataIn, dataLoad, dataOut }: Props) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          //onPresshandler({ item, index });
+          //onAllButtonPress();
           onSelectItem(item);
+          console.log('button: ', item.isSelected);
         }}
       >
-        {buttonList.includes(item) ||
-        item.isSelected === true ||
-        single === item ? (
+        {item.isSelected ? (
           <View
             style={[
               item.text === 'All' && !dataIn.sameWidth ? { width: 75 } : {},
@@ -93,55 +84,58 @@ const ButtonScreen = ({ dataIn, dataLoad, dataOut }: Props) => {
   return (
     <>
       <View style={{ flexDirection: 'row' }}>
-        {AllButtonValue.map(buttonValue => (
-          <TouchableOpacity
-            key={buttonValue.id}
-            onPress={() => {
-              onAllButtonPress();
-              onSelectItem(buttonValue);
-              console.log('button: ', buttonValue.isSelected);
-            }}
-          >
-            {buttonValue.isSelected === true ? (
-              <View
-                style={[
-                  buttonValue.text === 'All' && !dataIn.sameWidth
-                    ? { width: 75 }
-                    : {},
-                  dataIn.sameWidth ? { width: 75 } : {},
-                  styles.isActiveButtonStyle,
-                  dataIn.activeButtonStyle,
-                ]}
+        {dataIn.isAllbuttonActive
+          ? AllButtonValue.map(buttonValue => (
+              <TouchableOpacity
+                key={buttonValue.id}
+                onPress={() => {
+                  onAllButtonPress();
+                  //onSelectItem(buttonValue);
+                }}
               >
-                <Text style={[styles.buttonTextStyle, dataIn.activeTextStyle]}>
-                  {buttonValue.text}
-                </Text>
-              </View>
-            ) : (
-              <View
-                style={[
-                  buttonValue.text === 'All' && !dataIn.sameWidth
-                    ? { width: 75 }
-                    : {},
-                  dataIn.sameWidth ? { width: 75 } : {},
-                  styles.buttonStyle,
-                  [
-                    {
-                      backgroundColor: 'transparent',
-                    },
-                  ],
-                  dataIn.inActiveButtonStyle,
-                ]}
-              >
-                <Text
-                  style={[styles.buttonTextStyle, dataIn.inActiveTextStyle]}
-                >
-                  {buttonValue.text}
-                </Text>
-              </View>
-            )}
-          </TouchableOpacity>
-        ))}
+                {buttonValue.isSelected === true ? (
+                  <View
+                    style={[
+                      buttonValue.text === 'All' && !dataIn.sameWidth
+                        ? { width: 75 }
+                        : {},
+                      dataIn.sameWidth ? { width: 75 } : {},
+                      styles.isActiveButtonStyle,
+                      dataIn.activeButtonStyle,
+                    ]}
+                  >
+                    <Text
+                      style={[styles.buttonTextStyle, dataIn.activeTextStyle]}
+                    >
+                      {buttonValue.text}
+                    </Text>
+                  </View>
+                ) : (
+                  <View
+                    style={[
+                      buttonValue.text === 'All' && !dataIn.sameWidth
+                        ? { width: 75 }
+                        : {},
+                      dataIn.sameWidth ? { width: 75 } : {},
+                      styles.buttonStyle,
+                      [
+                        {
+                          backgroundColor: 'transparent',
+                        },
+                      ],
+                      dataIn.inActiveButtonStyle,
+                    ]}
+                  >
+                    <Text
+                      style={[styles.buttonTextStyle, dataIn.inActiveTextStyle]}
+                    >
+                      {buttonValue.text}
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+            ))
+          : null}
 
         <FlatList
           style={{

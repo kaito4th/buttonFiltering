@@ -37,7 +37,7 @@ export default function App() {
       <View>
         <FilterMAPP
           dataIn={{
-            isMultiSelect: false,
+            isMultiSelect: true,
             isAllbuttonActive: true,
             // sameWidth: true,
             inActiveButtonStyle: {

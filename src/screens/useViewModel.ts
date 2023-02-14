@@ -72,24 +72,41 @@ const useViewModel = ({ dataLoad, dataOut, dataIn }: Props) => {
 
   const onAllButtonPress = () => {
     if (dataIn.isAllbuttonActive) {
-      setButtonList(
-        buttonList.map(select => ({
-          ...select,
-          isSelected: !select.isSelected,
-        }))
-      );
+      if (buttonList.every(i => i.isSelected)) {
+        setButtonList(
+          buttonList.map(select => ({
+            ...select,
+            isSelected: false,
+          }))
+        );
+        dataOut([]);
+      } else {
+        setButtonList(
+          buttonList.map(select => ({
+            ...select,
+            isSelected: true,
+          }))
+        );
+        dataOut(buttonList);
+      }
     }
   };
 
   const onSelectItem = (item: FilterDataModel) => {
     if (dataIn.isMultiSelect) {
-      console.log('select: ', item);
-      buttonList.map(select => {
+      let newButtonList = buttonList.map(select => {
         if (select.id === item.id) {
           return { ...select, isSelected: !select.isSelected };
         }
         return select;
       });
+      setButtonList(newButtonList);
+
+      const selectedIds = buttonList
+        .filter(button => button.isSelected)
+        .map(button => button);
+
+      console.log('selected: ', selectedIds);
     }
   };
 
